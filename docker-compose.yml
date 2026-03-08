@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  notebooks:
+    build: ./notebooks
+    container_name: wicys_notebooks
+    ports:
+      - "8888:8888"
+    environment:
+      - JUPYTER_TOKEN=wicys2026
+    volumes:
+      - ./data:/workspace/data
+      - ./notebooks/notebooks:/workspace/notebooks
+    restart: unless-stopped
+
+  detector:
+    build: ./detector
+    container_name: wicys_detector
+    ports:
+      - "8000:8000"
+    environment:
+      - USE_ML=1
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    restart: unless-stopped
+
+  collector:
+    build: ./collector
+    container_name: wicys_collector
+    depends_on:
+      - detector
+    ports:
+      - "8001:8001"
+    environment:
+      - DETECTOR_URL=http://detector:8000/score
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+networks:
+  default:
+    name: wicys_soc_net
