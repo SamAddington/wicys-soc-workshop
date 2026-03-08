@@ -49,7 +49,7 @@ LICENSE
 ### Clone and Run
 
 ```bash
-git clone <your-repo-url> wicys-soc-workshop
+git clone https://github.com/SamAddington/wicys-soc-workshop
 cd wicys-soc-workshop
 
 # Build containers
@@ -188,4 +188,3 @@ Always ensure that:
 
 This project is intended to be released under a permissive license such as MIT or Apache-2.0 so that institutions without commercial cybersecurity tools can freely adopt and adapt it.
 
-Add a `LICENSE` file to this repository to formalize the license choice.
