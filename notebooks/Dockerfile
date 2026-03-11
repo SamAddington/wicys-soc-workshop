@@ -16,4 +16,10 @@ COPY notebooks ./notebooks
 
 EXPOSE 8888
 
-CMD ["sh", "-c", "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=${JUPYTER_TOKEN:-wicys2026} --NotebookApp.allow_origin='*'"]
+CMD sh -c 'jupyter lab \
+  --ip=0.0.0.0 \
+  --port=8888 \
+  --no-browser \
+  --allow-root \
+  --IdentityProvider.token="${JUPYTER_TOKEN:-wicys2026}" \
+  --ServerApp.allow_origin="*"'
