@@ -1,3 +1,6 @@
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
@@ -96,7 +99,11 @@ def ingest(event: LogEvent):
         "human_triage_hint": detector_result.get("explanation"),
     }
 
+BASE_DIR = Path(__file__).resolve().parent
+STATIC_DIR = BASE_DIR / "static"
 
-@app.get("/health")
-def health():
-    return {"status": "up"}
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+@app.get("/")
+def serve_index():
+    return FileResponse(STATIC_DIR / "index.html")

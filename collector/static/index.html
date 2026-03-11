@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WiCyS Campus SOC Triage Demo</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      margin: 0;
+      padding: 24px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 { margin-bottom: 8px; }
+    p.sub { color: #475569; margin-top: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      margin-top: 12px;
+    }
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+    textarea { min-height: 160px; resize: vertical; }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    button {
+      border: none;
+      background: #2563eb;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button.secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .allow { background: #dbeafe; color: #1d4ed8; }
+    .review { background: #fef3c7; color: #b45309; }
+    .escalate { background: #fee2e2; color: #b91c1c; }
+    pre {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 12px;
+      border-radius: 10px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .box {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 12px;
+      background: #fff;
+    }
+    .muted { color: #475569; }
+    .hidden { display: none; }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>WiCyS Campus SOC Triage Demo</h1>
+    <p class="sub">Submit a campus-style event and inspect the bounded triage output.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Event input</h2>
+        <p class="muted">Enter an LMS or email-gateway event, or load a sample.</p>
+
+        <div class="buttons">
+          <button type="button" onclick="loadSuspicious()">Load suspicious sample</button>
+          <button type="button" class="secondary" onclick="loadBenign()">Load benign sample</button>
+          <button type="button" class="secondary" onclick="resetForm()">Reset</button>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="user_id">User ID</label>
+            <input id="user_id" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="source">Source</label>
+            <input id="source" />
+          </div>
+          <div>
+            <label for="event_type">Event type</label>
+            <input id="event_type" />
+          </div>
+        </div>
+
+        <label for="language">Language</label>
+        <input id="language" />
+
+        <label for="message">Message</label>
+        <textarea id="message"></textarea>
+
+        <div class="buttons">
+          <button type="button" onclick="submitEvent()">Submit event</button>
+        </div>
+
+        <div id="error" class="box hidden" style="border-color:#fecaca;background:#fef2f2;color:#991b1b;"></div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>Detector output</h2>
+          <p class="muted">Bounded triage response returned by the collector and detector services.</p>
+
+          <div id="emptyState" class="box">
+            Submit an event to see the risk score, label, action, and explanation.
+          </div>
+
+          <div id="resultBox" class="hidden">
+            <div class="box">
+              <div class="muted">Recommended action</div>
+              <div id="actionBadge" class="pill" style="margin-top:8px;">n/a</div>
+            </div>
+
+            <div class="row">
+              <div class="box">
+                <div class="muted">Risk score</div>
+                <div id="riskScore" style="font-size: 28px; font-weight: 700; margin-top: 8px;">—</div>
+              </div>
+              <div class="box">
+                <div class="muted">Label</div>
+                <div id="label" style="font-size: 28px; font-weight: 700; margin-top: 8px;">—</div>
+              </div>
+            </div>
+
+            <div class="box">
+              <div class="muted">Explanation</div>
+              <div id="explanation" style="margin-top: 8px;"></div>
+            </div>
+
+            <div class="box">
+              <div class="muted">Raw response</div>
+              <pre id="rawJson"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:24px;">
+          <h2>How to interpret the result</h2>
+          <p class="muted">Use the bounded triage output to decide what happens next.</p>
+
+          <div class="box">
+            <strong>allow</strong>
+            <div class="muted">Low-risk event. Keep it logged for audit and later review, but no immediate escalation is needed.</div>
+          </div>
+
+          <div class="box">
+            <strong>queue_for_review</strong>
+            <div class="muted">Medium-risk event. A human reviewer should inspect the message and decide whether it is benign, suspicious, or needs escalation.</div>
+          </div>
+
+          <div class="box">
+            <strong>escalate</strong>
+            <div class="muted">High-risk event. Route it to the security lead or incident-response workflow for immediate human attention.</div>
+          </div>
+
+          <div class="box">
+            <strong>Why the explanation matters</strong>
+            <div class="muted">The explanation shows which suspicious features influenced the score. This makes the workflow easier to review, document, and improve over time.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const suspiciousSample = {
+      user_id: "student123",
+      email: "student123@example.edu",
+      source: "email_gateway",
+      message: "URGENT: Your campus password will expire today. Click this link http://fake-reset.example to keep your account active and receive a gift card.",
+      event_type: "suspicious_email",
+      language: "en"
+    };
+
+    const benignSample = {
+      user_id: "student124",
+      email: "student124@example.edu",
+      source: "lms",
+      message: "Reminder: your CIS-110 assignment is due tonight at 11:59 PM.",
+      event_type: "course_reminder",
+      language: "en"
+    };
+
+    function setForm(data) {
+      document.getElementById("user_id").value = data.user_id || "";
+      document.getElementById("email").value = data.email || "";
+      document.getElementById("source").value = data.source || "";
+      document.getElementById("message").value = data.message || "";
+      document.getElementById("event_type").value = data.event_type || "";
+      document.getElementById("language").value = data.language || "";
+    }
+
+    function getForm() {
+      return {
+        user_id: document.getElementById("user_id").value,
+        email: document.getElementById("email").value,
+        source: document.getElementById("source").value,
+        message: document.getElementById("message").value,
+        event_type: document.getElementById("event_type").value,
+        language: document.getElementById("language").value
+      };
+    }
+
+    function loadSuspicious() { setForm(suspiciousSample); clearResult(); }
+    function loadBenign() { setForm(benignSample); clearResult(); }
+    function resetForm() {
+      setForm({ user_id:"", email:"", source:"email_gateway", message:"", event_type:"", language:"en" });
+      clearResult();
+    }
+
+    function clearResult() {
+      document.getElementById("error").classList.add("hidden");
+      document.getElementById("error").textContent = "";
+      document.getElementById("resultBox").classList.add("hidden");
+      document.getElementById("emptyState").classList.remove("hidden");
+    }
+
+    function setActionBadge(action) {
+      const badge = document.getElementById("actionBadge");
+      badge.textContent = action || "n/a";
+      badge.className = "pill";
+      if (action === "allow") badge.classList.add("allow");
+      else if (action === "queue_for_review") badge.classList.add("review");
+      else if (action === "escalate") badge.classList.add("escalate");
+    }
+
+    async function submitEvent() {
+      clearResult();
+
+      try {
+        const response = await fetch("/ingest", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(getForm())
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail || "Request failed");
+        }
+
+        const detector = data.detector_result || {};
+
+        document.getElementById("riskScore").textContent =
+          typeof detector.risk_score === "number" ? detector.risk_score.toFixed(2) : "—";
+        document.getElementById("label").textContent = detector.label || "—";
+        document.getElementById("explanation").textContent =
+          detector.explanation || "No explanation returned.";
+        document.getElementById("rawJson").textContent = JSON.stringify(data, null, 2);
+        setActionBadge(detector.action || "n/a");
+
+        document.getElementById("emptyState").classList.add("hidden");
+        document.getElementById("resultBox").classList.remove("hidden");
+      } catch (err) {
+        const error = document.getElementById("error");
+        error.textContent = err.message || "Unable to reach the collector service.";
+        error.classList.remove("hidden");
+      }
+    }
+
+    loadSuspicious();
+  </script>
+</body>
+</html>
