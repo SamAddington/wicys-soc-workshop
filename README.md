@@ -75,10 +75,16 @@ cd wicys-soc-workshop
 
 Build the containers:
 
+```text
 docker compose build
+```
+
 Start the stack:
 
+```text
 docker compose up
+```
+
 Services
 Once the stack is running, these services should be available:
 
