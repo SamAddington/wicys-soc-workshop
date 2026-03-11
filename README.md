@@ -364,7 +364,3 @@ governance-oriented demonstrations of bounded AI assistance
 
 It is not a production SOC platform, and it should not be represented as a substitute for enterprise SIEM, SOAR, or institutional incident-response infrastructure.
 
-## Project attribution
-
-Designed and developed by **Samuel Addington** for the WiCyS 2026 workshop on interpretable, human-in-the-loop security defense in resource-constrained campus environments.
-
