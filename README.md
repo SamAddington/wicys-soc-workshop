@@ -10,30 +10,30 @@ Designed and developed by **Samuel Addington**.
 
 Colleges and universities that serve low-income and underrepresented communities often face elevated cybersecurity risk while operating with limited budgets, small IT teams, and aging infrastructure. This project focuses on workflows that small teams can realistically **run, inspect, explain, and improve**.
 
-## Key features
+## Key Features
 
 - **Interpretability**  
   Transparent feature extraction, rule-based scoring, and short human-readable explanations.
 
-- **Bounded AI assistance**  
+- **Bounded AI Assistance**  
   The workflow returns explicit triage actions:
   - `allow`
   - `queue_for_review`
   - `escalate`
 
-- **Optional lightweight ML support**  
+- **Optional Lightweight ML Support**  
   A tiny ML second-opinion model can raise the risk score, while the rule-based path remains the safe fallback.
 
-- **Privacy by design**  
+- **Privacy by Design**  
   Data reduction and anonymization are built into the ingestion workflow.
 
-- **Fairness and language-equity review**  
+- **Fairness and Language-Equity Review**  
   Group-level review by language and domain, supported by threshold-tuning notebooks.
 
-- **Human-in-the-loop governance**  
+- **Human-in-the-Loop Governance**  
   Helpdesk runbooks, threshold-change logs, override records, and governance checklists are included in the repo.
 
-## Repository structure
+## Repository Structure
 
 ```text
 collector/           # FastAPI service: log ingestion, anonymization, feature extraction, and optional web UI
@@ -62,7 +62,7 @@ Git
 
 A laptop with at least 4 GB of RAM
 
-Quick start
+Quick Start
 Clone the repo:
 
 git clone https://github.com/SamAddington/wicys-soc-workshop
@@ -77,7 +77,6 @@ Services
 Once the stack is running, these services should be available:
 
 JupyterLab: http://localhost:8888
-
 Token: wicys2026
 (configurable in docker-compose.yml)
 
@@ -87,7 +86,7 @@ Collector Web UI: http://localhost:8001/
 
 Detector API: http://localhost:8000
 
-Web demo interface
+Web Demo Interface
 The easiest way to use the workflow during the workshop is through the attendee-facing web interface:
 
 Open: http://localhost:8001/
@@ -112,7 +111,7 @@ interpret the bounded triage output in a workshop-friendly format
 
 This is the recommended interface for live demonstrations and attendee use.
 
-Seed datasets
+Seed Datasets
 The repository includes synthetic, anonymized seed datasets:
 
 data/seed_lms_events.csv
@@ -134,14 +133,14 @@ This file is used by the feature-extraction and fairness / threshold-tuning note
 Note
 The workshop uses exported or synthetic logs, not live LMS or email integrations. In a production environment, you would adapt your own exporter or pipeline to call the collector API.
 
-Loading events
+Loading Events
 You can submit events in two ways:
 
 Recommended: use the web interface at http://localhost:8001/
 
 Advanced / API usage: send JSON directly to /ingest
 
-Example API request (Bash)
+Example API Request (Bash)
 curl -X POST http://localhost:8001/ingest \
   -H "Content-Type: application/json" \
   -d '{
@@ -152,9 +151,9 @@ curl -X POST http://localhost:8001/ingest \
         "event_type": "suspicious_email",
         "language": "en"
       }'
-Example API request (Windows Command Prompt)
+Example API Request (Windows Command Prompt)
 curl -X POST http://localhost:8001/ingest -H "Content-Type: application/json" -d "{\"user_id\":\"student123\",\"email\":\"student123@example.edu\",\"source\":\"email_gateway\",\"message\":\"URGENT: Your campus password will expire today. Click this link http://fake-reset.example to keep your account active and receive a gift card.\",\"event_type\":\"suspicious_email\",\"language\":\"en\"}"
-Expected response shape
+Expected Response Shape
 A successful response will look similar to this:
 
 {
@@ -167,10 +166,10 @@ A successful response will look similar to this:
   },
   "human_triage_hint": "Mentions passwords or passphrases. / Uses urgent language (e.g., 'urgent', 'immediately'). / Offers rewards such as gift cards or bonuses."
 }
-Detector logic
+Detector Logic
 The detector service (detector/app.py) combines:
 
-1. Rule-based core
+1. Rule-Based Core
 The rule-based detector uses transparent features such as:
 
 contains_link
@@ -193,7 +192,7 @@ a bounded action
 
 a short explanation
 
-2. Optional tiny ML second opinion
+2. Optional Tiny ML Second Opinion
 The detector can optionally apply a small logistic-style second-opinion model.
 
 Controlled by the USE_ML environment variable (0 or 1)
@@ -208,8 +207,8 @@ To enable the ML second opinion, set this for the detector service in docker-com
 
 environment:
   - USE_ML=1
-Governance, runbooks, and fairness
-Governance checklist
+Governance, Runbooks, and Fairness
+Governance Checklist
 governance_checklist.md provides a testable list of:
 
 data reduction and anonymization practices
@@ -224,7 +223,7 @@ safe operation for resource-limited environments
 
 documentation and reproducibility expectations
 
-Helpdesk triage runbook
+Helpdesk Triage Runbook
 docs/runbooks/helpdesk_triage.md describes:
 
 how to handle allow, queue_for_review, and escalate
@@ -235,7 +234,7 @@ how to document overrides in docs/overrides_log.md
 
 how to communicate with end users about suspicious messages
 
-Fairness and threshold-tuning notebook
+Fairness and Threshold-Tuning Notebook
 notebooks/notebooks/03_threshold_tuning_equity.ipynb:
 
 loads data/ingested_events.jsonl
@@ -254,7 +253,7 @@ whether any group is being disproportionately escalated
 
 whether changes should be documented in docs/threshold_changes.md
 
-Suggested workshop flow
+Suggested Workshop Flow
 A typical live demo or lab session can follow this sequence:
 
 Start the Docker stack
@@ -281,7 +280,7 @@ fairness checks
 
 Review the helpdesk runbook and governance checklist
 
-Adaptation for local contexts
+Adaptation for Local Contexts
 You can adapt this stack for:
 
 community colleges and regional universities
@@ -311,7 +310,7 @@ local policies and regulations are followed for data handling
 synthetic or properly de-identified data are used for public demos and coursework
 
 Troubleshooting
-JupyterLab keeps restarting
+JupyterLab Keeps Restarting
 If the notebooks container exits repeatedly with a message about running as root, make sure the Jupyter command includes:
 
 --allow-root
@@ -322,12 +321,12 @@ and uses the current token setting format:
 
 Then rebuild the notebooks container.
 
-localhost:8888 refuses to connect
+localhost:8888 Refuses to Connect
 Check whether the notebooks container is running:
 
 docker compose ps
 docker compose logs notebooks --tail=50
-localhost:8001 or localhost:8000 refuses to connect
+localhost:8001 or localhost:8000 Refuses to Connect
 Verify the collector and detector services:
 
 curl http://localhost:8001/health
@@ -335,11 +334,11 @@ curl http://localhost:8000/health
 Expected response:
 
 {"status":"up"}
-Windows curl command fails
+Windows curl Command Fails
 If you are using Windows Command Prompt, use the single-line example shown above.
 The multi-line Bash-style example with \ line continuation will not work correctly in cmd.exe.
 
-Web UI does not load
+Web UI Does Not Load
 If http://localhost:8001/ does not open:
 
 confirm that the collector container is running
@@ -353,7 +352,7 @@ rebuild the collector container if needed
 License
 This project is released under the terms described in the LICENSE file.
 
-Acknowledgment of scope
+Acknowledgment of Scope
 This repository is intended for:
 
 workshop instruction
@@ -365,3 +364,8 @@ security workflow experimentation
 governance-oriented demonstrations of bounded AI assistance
 
 It is not a production SOC platform, and it should not be represented as a substitute for enterprise SIEM, SOAR, or institutional incident-response infrastructure.
+
+
+The main issue before was that the markdown wasn’t being preserved as a rendered file. This version keeps the headings, bullets, and code fences correctly.
+
+If you want, I can also give you a **shorter, cleaner public-facing version** with badges and a screenshot section.
