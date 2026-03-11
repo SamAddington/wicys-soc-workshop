@@ -68,8 +68,11 @@ A laptop with at least 4 GB of RAM
 Quick Start
 Clone the repo:
 
+```text
 git clone https://github.com/SamAddington/wicys-soc-workshop
 cd wicys-soc-workshop
+```
+
 Build the containers:
 
 docker compose build
