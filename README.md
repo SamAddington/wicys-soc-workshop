@@ -257,11 +257,11 @@ notebooks/notebooks/03_threshold_tuning_equity.ipynb:
 
 Use this notebook to decide:
 
-whether thresholds should be adjusted
+- whether thresholds should be adjusted
 
-whether any group is being disproportionately escalated
+- whether any group is being disproportionately escalated
 
-whether changes should be documented in docs/threshold_changes.md
+- whether changes should be documented in docs/threshold_changes.md
 
 ## Suggested Workshop Flow
 A typical live demo or lab session can follow this sequence:
