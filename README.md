@@ -142,10 +142,10 @@ data/ingested_events.jsonl
 
 This file is used by the feature-extraction and fairness / threshold-tuning notebooks.
 
-Note
+** Note **
 The workshop uses exported or synthetic logs, not live LMS or email integrations. In a production environment, you would adapt your own exporter or pipeline to call the collector API.
 
-Loading Events
+** Loading Events **
 You can submit events in two ways:
 
 Recommended: use the web interface at http://localhost:8001/
@@ -168,6 +168,7 @@ curl -X POST http://localhost:8001/ingest -H "Content-Type: application/json" -d
 Expected Response Shape
 A successful response will look similar to this:
 
+```text
 {
   "status": "ok",
   "detector_result": {
@@ -178,7 +179,9 @@ A successful response will look similar to this:
   },
   "human_triage_hint": "Mentions passwords or passphrases. / Uses urgent language (e.g., 'urgent', 'immediately'). / Offers rewards such as gift cards or bonuses."
 }
-Detector Logic
+```
+
+** Detector Logic **
 The detector service (detector/app.py) combines:
 
 1. Rule-Based Core
@@ -217,8 +220,11 @@ Falls back safely to rule-based behavior if the ML path is disabled or fails
 
 To enable the ML second opinion, set this for the detector service in docker-compose.yml:
 
+```text
 environment:
   - USE_ML=1
+```
+
 Governance, Runbooks, and Fairness
 Governance Checklist
 governance_checklist.md provides a testable list of:
@@ -336,16 +342,25 @@ Then rebuild the notebooks container.
 localhost:8888 Refuses to Connect
 Check whether the notebooks container is running:
 
+```text
 docker compose ps
 docker compose logs notebooks --tail=50
 localhost:8001 or localhost:8000 Refuses to Connect
+```
+
 Verify the collector and detector services:
 
+```text
 curl http://localhost:8001/health
 curl http://localhost:8000/health
+```
+
 Expected response:
 
+```text
 {"status":"up"}
+```
+
 Windows curl Command Fails
 If you are using Windows Command Prompt, use the single-line example shown above.
 The multi-line Bash-style example with \ line continuation will not work correctly in cmd.exe.
@@ -361,10 +376,10 @@ verify that the static UI files are copied into the collector image
 
 rebuild the collector container if needed
 
-License
+** License **
 This project is released under the terms described in the LICENSE file.
 
-Acknowledgment of Scope
+** Acknowledgment of Scope ** 
 This repository is intended for:
 
 workshop instruction
@@ -377,7 +392,3 @@ governance-oriented demonstrations of bounded AI assistance
 
 It is not a production SOC platform, and it should not be represented as a substitute for enterprise SIEM, SOAR, or institutional incident-response infrastructure.
 
-
-The main issue before was that the markdown wasn’t being preserved as a rendered file. This version keeps the headings, bullets, and code fences correctly.
-
-If you want, I can also give you a **shorter, cleaner public-facing version** with badges and a screenshot section.
