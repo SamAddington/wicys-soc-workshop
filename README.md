@@ -266,27 +266,27 @@ whether changes should be documented in docs/threshold_changes.md
 ## Suggested Workshop Flow
 A typical live demo or lab session can follow this sequence:
 
-Start the Docker stack
+- Start the Docker stack
 
-Open the web interface at http://localhost:8001/
+- Open the web interface at http://localhost:8001/
 
-Submit a suspicious sample event
+- Submit a suspicious sample event
 
-Review the returned risk score, label, action, and explanation
+- Review the returned risk score, label, action, and explanation
 
-Submit a benign sample event
+- Submit a benign sample event
 
-Compare outputs
+- Compare outputs
 
 Open the notebooks to inspect:
 
-extracted features
+- extracted features
 
-stored JSONL events
+- stored JSONL events
 
-threshold tuning
+- threshold tuning
 
-fairness checks
+- fairness checks
 
 Review the helpdesk runbook and governance checklist
 
@@ -323,11 +323,15 @@ Always ensure that:
 JupyterLab Keeps Restarting
 If the notebooks container exits repeatedly with a message about running as root, make sure the Jupyter command includes:
 
+```text
 --allow-root
+```
 
 and uses the current token setting format:
 
+```text
 --IdentityProvider.token=...
+```
 
 Then rebuild the notebooks container.
 
@@ -357,7 +361,7 @@ Windows curl Command Fails
 If you are using Windows Command Prompt, use the single-line example shown above.
 The multi-line Bash-style example with \ line continuation will not work correctly in cmd.exe.
 
-Web UI Does Not Load
+## Web UI Does Not Load
 If http://localhost:8001/ does not open:
 
 - confirm that the collector container is running
@@ -368,10 +372,10 @@ If http://localhost:8001/ does not open:
 
 - rebuild the collector container if needed
 
-** License **
+## License 
 This project is released under the terms described in the LICENSE file.
 
-** Acknowledgment of Scope ** 
+## Acknowledgment of Scope 
 This repository is intended for:
 
 - workshop instruction
