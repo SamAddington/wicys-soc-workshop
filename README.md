@@ -209,7 +209,7 @@ It produces:
 - a bounded action
 - a short explanation
 
-2. Optional Tiny ML Second Opinion
+2. (Optional) Tiny ML Second Opinion
 The detector can optionally apply a small logistic-style second-opinion model.
 
 Controlled by the USE_ML environment variable (0 or 1)
