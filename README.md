@@ -137,7 +137,9 @@ These mimic:
 
 All ingested events are appended to:
 
+```text
 data/ingested_events.jsonl
+```
 
 This file is used by the feature-extraction and fairness / threshold-tuning notebooks.
 
