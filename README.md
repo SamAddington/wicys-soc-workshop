@@ -57,14 +57,14 @@ README.md
 LICENSE
 ```
 
-Prerequisites
+**Prerequisites**
 Docker Desktop or a compatible Docker engine
 
 - Git
 
 - A laptop with at least 4 GB of RAM
 
-Quick Start
+**Quick Start**
 Clone the repo:
 
 ```text
@@ -72,19 +72,19 @@ git clone https://github.com/SamAddington/wicys-soc-workshop
 cd wicys-soc-workshop
 ```
 
-Build the containers:
+**Build the containers:**
 
 ```text
 docker compose build
 ```
 
-Start the stack:
+**Start the stack:**
 
 ```text
 docker compose up
 ```
 
-Services
+**Services**
 Once the stack is running, these services should be available:
 
 - JupyterLab: http://localhost:8888
@@ -97,7 +97,7 @@ Token: wicys2026
 
 - Detector API: http://localhost:8000
 
-Web Demo Interface
+**Web Demo Interface**
 The easiest way to use the workflow during the workshop is through the attendee-facing web interface:
 
 Open: http://localhost:8001/
@@ -122,7 +122,7 @@ interpret the bounded triage output in a workshop-friendly format
 
 This is the recommended interface for live demonstrations and attendee use.
 
-Seed Datasets
+**Seed Datasets**
 The repository includes synthetic, anonymized seed datasets:
 
 - data/seed_lms_events.csv
@@ -168,7 +168,7 @@ curl -X POST http://localhost:8001/ingest \
       }'
 ```
 
-Example API Request (Windows Command Prompt)
+## Example API Request (Windows Command Prompt)
 
 ```text
 curl -X POST http://localhost:8001/ingest -H "Content-Type: application/json" -d "{\"user_id\":\"student123\",\"email\":\"student123@example.edu\",\"source\":\"email_gateway\",\"message\":\"URGENT: Your campus password will expire today. Click this link http://fake-reset.example to keep your account active and receive a gift card.\",\"event_type\":\"suspicious_email\",\"language\":\"en\"}"
@@ -227,8 +227,8 @@ environment:
   - USE_ML=1
 ```
 
-Governance, Runbooks, and Fairness
-Governance Checklist
+## Governance, Runbooks, and Fairness
+**Governance Checklist**
 governance_checklist.md provides a testable list of:
 
 - data reduction and anonymization practices
@@ -330,7 +330,7 @@ Always ensure that:
 - synthetic or properly de-identified data are used for public demos and coursework
 
 # Troubleshooting
-# JupyterLab Keeps Restarting
+## JupyterLab Keeps Restarting
 
 If the notebooks container exits repeatedly with a message about running as root, make sure the Jupyter command includes:
 
@@ -346,7 +346,7 @@ and uses the current token setting format:
 
 Then rebuild the notebooks container.
 
-# localhost:8888 Refuses to Connect
+## localhost:8888 Refuses to Connect
 Check whether the notebooks container is running:
 
 ```text
