@@ -105,19 +105,19 @@ Open: http://localhost:8001/
 
 The web interface allows you to:
 
-load suspicious and benign sample events
+- load suspicious and benign sample events
 
-submit events without using curl
+- submit events without using curl
 
 inspect the returned:
 
-risk score
+- risk score
 
-label
+- label
 
-action
+-action
 
-explanation
+-explanation
 
 interpret the bounded triage output in a workshop-friendly format
 
@@ -126,15 +126,15 @@ This is the recommended interface for live demonstrations and attendee use.
 Seed Datasets
 The repository includes synthetic, anonymized seed datasets:
 
-data/seed_lms_events.csv
+- data/seed_lms_events.csv
 
-data/seed_email_events.csv
+- data/seed_email_events.csv
 
 These mimic:
 
-LMS events such as logins, submissions, and discussion posts
+- LMS events such as logins, submissions, and discussion posts
 
-email gateway events such as reminders and suspicious emails
+- email gateway events such as reminders and suspicious emails
 
 All ingested events are appended to:
 
@@ -142,10 +142,10 @@ data/ingested_events.jsonl
 
 This file is used by the feature-extraction and fairness / threshold-tuning notebooks.
 
-** Note **
+Note 
 The workshop uses exported or synthetic logs, not live LMS or email integrations. In a production environment, you would adapt your own exporter or pipeline to call the collector API.
 
-** Loading Events **
+Loading Events 
 You can submit events in two ways:
 
 Recommended: use the web interface at http://localhost:8001/
@@ -187,25 +187,18 @@ The detector service (detector/app.py) combines:
 1. Rule-Based Core
 The rule-based detector uses transparent features such as:
 
-contains_link
-
-contains_password
-
-contains_urgent
-
-contains_reward
-
-len_message
+- contains_link
+- contains_password
+- contains_urgent
+- contains_reward
+- len_message
 
 It produces:
 
-a risk score in [0, 1]
-
-a triage label
-
-a bounded action
-
-a short explanation
+-  risk score in [0, 1]
+- a triage label
+- a bounded action
+- a short explanation
 
 2. Optional Tiny ML Second Opinion
 The detector can optionally apply a small logistic-style second-opinion model.
@@ -229,17 +222,17 @@ Governance, Runbooks, and Fairness
 Governance Checklist
 governance_checklist.md provides a testable list of:
 
-data reduction and anonymization practices
+- data reduction and anonymization practices
 
-transparency and interpretability requirements
+- transparency and interpretability requirements
 
-fairness and language-equity checks
+- fairness and language-equity checks
 
-human-in-the-loop triage policies
+- human-in-the-loop triage policies
 
-safe operation for resource-limited environments
+- safe operation for resource-limited environments
 
-documentation and reproducibility expectations
+- documentation and reproducibility expectations
 
 Helpdesk Triage Runbook
 docs/runbooks/helpdesk_triage.md describes:
