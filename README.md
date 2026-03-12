@@ -6,7 +6,7 @@ Hands-on materials for the **WiCyS 2026** workshop:
 
 This repository provides an open, containerized workflow for **interpretable, human-in-the-loop security triage** in resource-constrained campus environments. It is designed for teaching, experimentation, and workforce development using **anonymized or synthetic data** rather than live production systems.
 
-Designed and developed by **Samuel Addington**.
+This entire project was designed and developed by **Samuel Addington**.
 
 Colleges and universities that serve low-income and underrepresented communities often face elevated cybersecurity risk while operating with limited budgets, small IT teams, and aging infrastructure. This project focuses on workflows that small teams can realistically **run, inspect, explain, and improve**.
 
