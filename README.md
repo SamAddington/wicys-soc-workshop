@@ -60,10 +60,9 @@ LICENSE
 Prerequisites
 Docker Desktop or a compatible Docker engine
 
+- Git
 
-Git
-
-A laptop with at least 4 GB of RAM
+- A laptop with at least 4 GB of RAM
 
 Quick Start
 Clone the repo:
