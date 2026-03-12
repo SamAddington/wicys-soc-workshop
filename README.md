@@ -88,15 +88,15 @@ docker compose up
 Services
 Once the stack is running, these services should be available:
 
-JupyterLab: http://localhost:8888
+- JupyterLab: http://localhost:8888
 Token: wicys2026
 (configurable in docker-compose.yml)
 
-Collector API: http://localhost:8001
+- Collector API: http://localhost:8001
 
-Collector Web UI: http://localhost:8001/
+- Collector Web UI: http://localhost:8001/
 
-Detector API: http://localhost:8000
+- Detector API: http://localhost:8000
 
 Web Demo Interface
 The easiest way to use the workflow during the workshop is through the attendee-facing web interface:
@@ -361,13 +361,13 @@ The multi-line Bash-style example with \ line continuation will not work correct
 Web UI Does Not Load
 If http://localhost:8001/ does not open:
 
-confirm that the collector container is running
+- confirm that the collector container is running
 
-confirm that the collector service exposes port 8001
+- confirm that the collector service exposes port 8001
 
-verify that the static UI files are copied into the collector image
+- verify that the static UI files are copied into the collector image
 
-rebuild the collector container if needed
+- rebuild the collector container if needed
 
 ** License **
 This project is released under the terms described in the LICENSE file.
@@ -375,13 +375,13 @@ This project is released under the terms described in the LICENSE file.
 ** Acknowledgment of Scope ** 
 This repository is intended for:
 
-workshop instruction
+- workshop instruction
 
-classroom use
+- classroom use
 
-security workflow experimentation
+- security workflow experimentation
 
-governance-oriented demonstrations of bounded AI assistance
+- governance-oriented demonstrations of bounded AI assistance
 
 It is not a production SOC platform, and it should not be represented as a substitute for enterprise SIEM, SOAR, or institutional incident-response infrastructure.
 
