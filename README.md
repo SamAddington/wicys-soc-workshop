@@ -85,6 +85,7 @@ docker compose up
 ```
 
 **Services**
+
 Once the stack is running, these services should be available:
 
 - JupyterLab: http://localhost:8888
@@ -98,6 +99,7 @@ Token: wicys2026
 - Detector API: http://localhost:8000
 
 **Web Demo Interface**
+
 The easiest way to use the workflow during the workshop is through the attendee-facing web interface:
 
 Open: http://localhost:8001/
