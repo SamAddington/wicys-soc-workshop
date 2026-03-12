@@ -114,9 +114,9 @@ inspect the returned:
 
 - label
 
--action
+- action
 
--explanation
+- explanation
 
 interpret the bounded triage output in a workshop-friendly format
 
@@ -141,10 +141,10 @@ data/ingested_events.jsonl
 
 This file is used by the feature-extraction and fairness / threshold-tuning notebooks.
 
-Note 
+## Note 
 The workshop uses exported or synthetic logs, not live LMS or email integrations. In a production environment, you would adapt your own exporter or pipeline to call the collector API.
 
-Loading Events 
+## Loading Events 
 You can submit events in two ways:
 
 Recommended: use the web interface at http://localhost:8001/
@@ -180,7 +180,7 @@ A successful response will look similar to this:
 }
 ```
 
-** Detector Logic **
+## Detector Logic 
 The detector service (detector/app.py) combines:
 
 1. Rule-Based Core
@@ -236,24 +236,24 @@ governance_checklist.md provides a testable list of:
 Helpdesk Triage Runbook
 docs/runbooks/helpdesk_triage.md describes:
 
-how to handle allow, queue_for_review, and escalate
+- how to handle allow, queue_for_review, and escalate
 
-when and how to override the detector
+- when and how to override the detector
 
-how to document overrides in docs/overrides_log.md
+- how to document overrides in docs/overrides_log.md
 
-how to communicate with end users about suspicious messages
+- how to communicate with end users about suspicious messages
 
-Fairness and Threshold-Tuning Notebook
+## Fairness and Threshold-Tuning Notebook
 notebooks/notebooks/03_threshold_tuning_equity.ipynb:
 
-loads data/ingested_events.jsonl
+- loads data/ingested_events.jsonl
 
-computes metrics by language and domain
+- computes metrics by language and domain
 
-plots risk-score distributions per group
+- plots risk-score distributions per group
 
-sweeps thresholds and reports escalation-rate gaps
+- sweeps thresholds and reports escalation-rate gaps
 
 Use this notebook to decide:
 
@@ -263,7 +263,7 @@ whether any group is being disproportionately escalated
 
 whether changes should be documented in docs/threshold_changes.md
 
-Suggested Workshop Flow
+## Suggested Workshop Flow
 A typical live demo or lab session can follow this sequence:
 
 Start the Docker stack
@@ -290,36 +290,36 @@ fairness checks
 
 Review the helpdesk runbook and governance checklist
 
-Adaptation for Local Contexts
+## Adaptation for Local Contexts
 You can adapt this stack for:
 
-community colleges and regional universities
+- community colleges and regional universities
 
-cybersecurity workforce programs
+- cybersecurity workforce programs
 
-student cyber clubs and competitions
+- student cyber clubs and competitions
 
-courses in networking, security, or data science
+- courses in networking, security, or data science
 
 Common adaptations include:
 
-replacing seed_* CSVs with your own anonymized campus exports
+- replacing seed_* CSVs with your own anonymized campus exports
 
-adding new rules or features in collector/app.py and detector/app.py
+- adding new rules or features in collector/app.py and detector/app.py
 
-extending notebooks with additional fairness metrics or visualizations
+- extending notebooks with additional fairness metrics or visualizations
 
-using the web interface for student labs instead of direct API calls
+- using the web interface for student labs instead of direct API calls
 
 Always ensure that:
 
-no direct identifiers appear in logs or notebooks
+- no direct identifiers appear in logs or notebooks
 
-local policies and regulations are followed for data handling
+- local policies and regulations are followed for data handling
 
-synthetic or properly de-identified data are used for public demos and coursework
+- synthetic or properly de-identified data are used for public demos and coursework
 
-Troubleshooting
+## Troubleshooting
 JupyterLab Keeps Restarting
 If the notebooks container exits repeatedly with a message about running as root, make sure the Jupyter command includes:
 
