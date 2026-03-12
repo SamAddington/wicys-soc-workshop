@@ -149,9 +149,9 @@ The workshop uses exported or synthetic logs, not live LMS or email integrations
 ## Loading Events 
 You can submit events in two ways:
 
-Recommended: use the web interface at http://localhost:8001/
+- Recommended: use the web interface at http://localhost:8001/
 
-Advanced / API usage: send JSON directly to /ingest
+- Advanced / API usage: send JSON directly to /ingest
 
 ## Example API Request (Bash)
 
@@ -243,7 +243,7 @@ governance_checklist.md provides a testable list of:
 
 - documentation and reproducibility expectations
 
-Helpdesk Triage Runbook
+## Helpdesk Triage Runbook
 docs/runbooks/helpdesk_triage.md describes:
 
 - how to handle allow, queue_for_review, and escalate
