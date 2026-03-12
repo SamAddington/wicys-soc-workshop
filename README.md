@@ -153,7 +153,9 @@ Recommended: use the web interface at http://localhost:8001/
 
 Advanced / API usage: send JSON directly to /ingest
 
-Example API Request (Bash)
+## Example API Request (Bash)
+
+```text
 curl -X POST http://localhost:8001/ingest \
   -H "Content-Type: application/json" \
   -d '{
@@ -164,9 +166,15 @@ curl -X POST http://localhost:8001/ingest \
         "event_type": "suspicious_email",
         "language": "en"
       }'
+```
+
 Example API Request (Windows Command Prompt)
+
+```text
 curl -X POST http://localhost:8001/ingest -H "Content-Type: application/json" -d "{\"user_id\":\"student123\",\"email\":\"student123@example.edu\",\"source\":\"email_gateway\",\"message\":\"URGENT: Your campus password will expire today. Click this link http://fake-reset.example to keep your account active and receive a gift card.\",\"event_type\":\"suspicious_email\",\"language\":\"en\"}"
-Expected Response Shape
+```
+
+## Expected Response Shape
 A successful response will look similar to this:
 
 ```text
