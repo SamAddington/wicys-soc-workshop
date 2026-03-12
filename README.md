@@ -329,8 +329,9 @@ Always ensure that:
 
 - synthetic or properly de-identified data are used for public demos and coursework
 
-## Troubleshooting
-JupyterLab Keeps Restarting
+# Troubleshooting
+# JupyterLab Keeps Restarting
+
 If the notebooks container exits repeatedly with a message about running as root, make sure the Jupyter command includes:
 
 ```text
@@ -345,7 +346,7 @@ and uses the current token setting format:
 
 Then rebuild the notebooks container.
 
-localhost:8888 Refuses to Connect
+# localhost:8888 Refuses to Connect
 Check whether the notebooks container is running:
 
 ```text
@@ -367,7 +368,7 @@ Expected response:
 {"status":"up"}
 ```
 
-Windows curl Command Fails
+## Windows curl Command Fails
 If you are using Windows Command Prompt, use the single-line example shown above.
 The multi-line Bash-style example with \ line continuation will not work correctly in cmd.exe.
 
@@ -382,10 +383,10 @@ If http://localhost:8001/ does not open:
 
 - rebuild the collector container if needed
 
-## License 
+# License 
 This project is released under the terms described in the LICENSE file.
 
-## Acknowledgment of Scope 
+# Acknowledgment of Scope 
 This repository is intended for:
 
 - workshop instruction
